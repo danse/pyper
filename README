@@ -3,7 +3,7 @@ http://code.google.com/p/pyp/
 
 
 How to install:
-pip install git+https://github.com/danse/micropyp.git
+ $ pip install git+https://github.com/danse/micropyp.git
 
 How to play:
  $ micropyp ' int(p) | sum(pp) ' < test

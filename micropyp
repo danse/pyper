@@ -9,8 +9,8 @@ def parse(pipe):
     """
     return [s.strip() for s in pipe.split('|')]
 
-def stage(command, input):
-    for p in input:
+def stage(command, pp):
+    for p in pp:
         yield eval(command)
          
 def process(arg, input):

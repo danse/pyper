@@ -23,6 +23,11 @@ directory::
 
  $ find | micropyp.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'
 
+You can wrap it up in a good old bash function, and play with it around::
+
+ $ oldest_in () { find $1 | micropyp.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'; }
+ $ oldest_in <that_dir>
+
 Other examples
 --------------
 

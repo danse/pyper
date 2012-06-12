@@ -1,5 +1,7 @@
 #!/usr/bin/python
+from __future__ import print_function
 import sys
+import traceback
 from optparse import OptionParser
 
 def parse(pipe):
@@ -14,7 +16,8 @@ def stage(command, pp):
         try:
             yield eval(command)
         except:
-            pass
+            traceback.print_exc()
+            print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
          
 def process(arg, input):
     '''
@@ -23,6 +26,7 @@ def process(arg, input):
     ... '234 4 6',
     ... '2323 5 2',
     ... '6546 7 5',
+    ... '675',
     ... )
     >>> [p for p in process(arg, input)]
     [3, -1, 2]
@@ -37,4 +41,4 @@ def process(arg, input):
 if __name__=='__main__':
     options, args = OptionParser().parse_args()
     for p in process(args[0], sys.stdin):
-        print p
+        print(p)

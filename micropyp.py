@@ -28,7 +28,13 @@ def process(arg, input):
     for p in gen:
         yield p
 
+def main(arg, input):
+    for p in process(arg, input):
+        print(p)
+
+def test(arg, input):
+    main(arg, input.splitlines())
+
 if __name__=='__main__':
     options, args = OptionParser().parse_args()
-    for p in process(args[0], sys.stdin):
-        print(p)
+    main(args[0], sys.stdin)

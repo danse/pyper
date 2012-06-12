@@ -11,7 +11,10 @@ def parse(pipe):
 
 def stage(command, pp):
     for p in pp:
-        yield eval(command)
+        try:
+            yield eval(command)
+        except:
+            pass
          
 def process(arg, input):
     '''

@@ -2,5 +2,5 @@ from setuptools import setup
 
 setup(
     name='micropyp',
-    scripts=['micropyp'],
+    scripts=['micropyp.py'],
     )

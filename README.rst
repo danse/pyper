@@ -15,7 +15,7 @@ How to play::
  2
  3
  4
- $ micropyp ' int(p) | sum(pp) ' < test
+ $ micropyp.py ' int(p) | sum(pp) ' < test
  7
 
 Other examples

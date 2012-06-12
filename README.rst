@@ -18,6 +18,11 @@ How to play::
  $ micropyp.py ' int(p) | sum(pp) ' < test
  7
 
+A quite contorted example, find the file with the oldest change time in a
+directory::
+
+ $ find | micropyp.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'
+
 Other examples
 --------------
 

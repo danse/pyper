@@ -1,9 +1,12 @@
 #!/usr/bin/python
 from __future__ import print_function
-import re
 import sys
 import traceback
 from optparse import OptionParser
+# for the piped commands
+import re
+import os
+import datetime
 
 def parse(pipe):
     """

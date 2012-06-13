@@ -70,8 +70,8 @@ def main(command, pp):
     for p in process(command, pp):
         print(p)
 
-def test(command, input):
-    main(command, input.splitlines())
+def test(command, input_):
+    main(command, input_.splitlines())
 
 if __name__=='__main__':
     options, args = OptionParser().parse_args()

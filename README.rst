@@ -52,13 +52,13 @@ Following examples can be ran like the one before. They are written this way to
 work also like actual automatic tests.
 
     >>> from pyper import test
-    >>> input = '''
+    >>> input_ = '''
     ... 234 4 6
     ... 2323 5 2
     ... 6546 7 5
     ... 675
     ... '''
-    >>> test('p.split() | p[2] | int(p) - 3', input)
+    >>> test('p.split() | p[2] | int(p) - 3', input_)
     3
     -1
     2
@@ -76,7 +76,7 @@ Produce
     instead of ``|`` to make the downstream pipe stage iterate the result of a
     preceding pipe stage:
 
-    >>> test('p.split() ^ "flattened "+p', input)
+    >>> test('p.split() ^ "flattened "+p', input_)
     flattened 234
     flattened 4
     flattened 6
@@ -107,16 +107,16 @@ Reduce
     its result (after all, it's just True or False), but with it's original
     ``p`` value.
 
-    >>> test('p.split() ^  2 < int(p) < 10 &', input)
+    >>> test('p.split() ^  2 < int(p) < 10 &', input_)
     4
     6
     5
     7
     5
-    >>> input = '''
+    >>> input_ = '''
     ... just noise
     ... use it like grep
     ... if you want
     ... '''
-    >>> test(' "grep" in p &', input)
+    >>> test(' "grep" in p &', input_)
     use it like grep

@@ -52,13 +52,13 @@ Following examples can be ran like the one before. They are written this way to
 work also like actual automatic tests.
 
     >>> from pyper import test
-    >>> input_ = '''
+    >>> matrix_ = '''
     ... 234 4 6
     ... 2323 5 2
     ... 6546 7 5
     ... 675
     ... '''
-    >>> test('p.split() | p[2] | int(p) - 3', input_)
+    >>> test('p.split() | p[2] | int(p) - 3', matrix_)
     3
     -1
     2
@@ -76,17 +76,6 @@ Produce
     instead of ``|`` to make the downstream pipe stage iterate the result of a
     preceding pipe stage:
 
-    >>> test('p.split() ^ "flattened "+p', input_)
-    flattened 234
-    flattened 4
-    flattened 6
-    flattened 2323
-    flattened 5
-    flattened 2
-    flattened 6546
-    flattened 7
-    flattened 5
-    flattened 675
     >>> test('p | p', 'iterable')
     iterable
     >>> test('p ^ p', 'iterable')
@@ -98,6 +87,17 @@ Produce
     b
     l
     e
+    >>> test('p.split() ^ "flattened "+p', matrix_)
+    flattened 234
+    flattened 4
+    flattened 6
+    flattened 2323
+    flattened 5
+    flattened 2
+    flattened 6546
+    flattened 7
+    flattened 5
+    flattened 675
 
 Reduce
 ......

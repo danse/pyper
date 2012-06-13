@@ -113,6 +113,19 @@ Reduce
     5
     7
     5
+    
+    Filter blank lines:
+
+    >>> input_ = '''
+    ... 
+    ... this matters
+    ... 
+    ... '''
+    >>> test(' p &', input_)
+    this matters
+
+    Act like grep:
+
     >>> input_ = '''
     ... just noise
     ... use it like grep

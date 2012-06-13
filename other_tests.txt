@@ -4,6 +4,8 @@ Other tests
 These tests are not so expressive to go on the README page, but they are
 nonetheless useful to test pyper.
 
+    This showed off the necessity for `reintegrate` iterator
+
     >>> from pyper import test, main, process, single
     >>> list_ = iter(['4', '5', '7'])
     >>> for p in single('list(pp)', list_): p

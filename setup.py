@@ -1,6 +1,6 @@
 from setuptools import setup
 
 setup(
-    name='micropyp',
-    scripts=['micropyp.py'],
+    name='pyper',
+    scripts=['pyper.py'],
     )

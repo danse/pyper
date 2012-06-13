@@ -7,7 +7,7 @@ http://code.google.com/p/pyp/
 
 How to install::
 
- pip install git+https://github.com/danse/micropyp.git
+ pip install git+https://github.com/danse/pyper.git
 
 How to play? Given a ``test`` file containing::
 
@@ -19,27 +19,27 @@ Process it line by line with piped python evaluable statements (no
 assignments). ``p`` has always the result returned by the previous pipe stage,
 ``pp`` is the whole list::
 
- micropyp.py ' int(p) | sum(pp) ' < test
+ pyper.py ' int(p) | sum(pp) ' < test
  7
 
 An example involving also unix pipes. List the ten top-level directories
 containing more files, excluding hidden files and dirs (requires python 2.7 for
 the Counter)::
 
- find | micropyp.py ' "/." not in p & p.split("/") | p[1] | collections.Counter(pp).most_common(10) '
+ find | pyper.py ' "/." not in p & p.split("/") | p[1] | collections.Counter(pp).most_common(10) '
 
 The same, but at any level::
 
- find | micropyp.py ' "/." not in p & p.split("/") | p[:-2] | "/".join(p) | collections.Counter(pp).most_common(10) '
+ find | pyper.py ' "/." not in p & p.split("/") | p[:-2] | "/".join(p) | collections.Counter(pp).most_common(10) '
 
 A quite contorted example, find the file with the oldest change time in a
 directory::
 
- find | micropyp.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'
+ find | pyper.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'
 
 You can wrap it up in a good old bash function, and play with it around::
 
- oldest_in () { find $1 | micropyp.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'; }
+ oldest_in () { find $1 | pyper.py 'p, os.stat(p).st_ctime | p[0], datetime.datetime.fromtimestamp(p[1]) | min(pp, key=lambda x:x[1]) | [str(i) for i in p]'; }
  oldest_in <that_dir>
 
 If you get exceptions, they are going to standard output. They are not going to
@@ -51,7 +51,7 @@ Other examples
 Following examples can be ran like the one before. They are written this way to
 work also like actual automatic tests.
 
-    >>> from micropyp import test
+    >>> from pyper import test
     >>> input = '''
     ... 234 4 6
     ... 2323 5 2

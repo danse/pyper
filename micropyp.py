@@ -4,9 +4,11 @@ import sys
 import traceback
 from optparse import OptionParser
 # for the piped commands
+import collections
+import datetime
+import pprint
 import re
 import os
-import datetime
 
 def parse(pipe):
     """
@@ -30,7 +32,7 @@ def single(command, pp):
             traceback.print_exc()
             print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
          
-def multiple(command, pp):
+def produce(command, pp):
     for p in pp:
         try:
             for e in eval(command):
@@ -39,7 +41,7 @@ def multiple(command, pp):
             traceback.print_exc()
             print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
          
-def condition(command, pp):
+def reduce(command, pp):
     for p in pp:
         try:
             c = bool(eval(command))
@@ -55,8 +57,8 @@ def process(arg, input):
         command, type_ = command[:-1], command[-1]
         stage = {
             '|' : single,
-            '^' : multiple,
-            '&' : condition,
+            '^' : produce,
+            '&' : reduce,
         }[type_]
         gen = stage(command, gen)
 

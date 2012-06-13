@@ -22,6 +22,11 @@ assignments). ``p`` has always the result returned by the previous pipe stage,
  micropyp.py ' int(p) | sum(pp) ' < test
  7
 
+An example involving also unix pipes. List the ten directories containing more
+files, excluding hidden files and dirs (requires python 2.7 for the Counter)::
+
+ find | micropyp.py ' "/." not in p & p.split("/") | p[1] | collections.Counter(pp).most_common(10) '
+
 A quite contorted example, find the file with the oldest change time in a
 directory::
 

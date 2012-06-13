@@ -1,8 +1,7 @@
-micro python piper (forget awk)
-===============================
+python piper
+============
 
-From the genial idea by Toby Rosen, pyp:
-http://code.google.com/p/pyp/
+From the genial idea by Toby Rosen, pyp: http://code.google.com/p/pyp/
 
 
 How to install::

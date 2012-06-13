@@ -1,0 +1,23 @@
+Other tests
+===========
+
+These tests are not so expressive to go on the README page, but they are
+nonetheless useful to test pyper.
+
+    >>> from pyper import test, main, process, single
+    >>> list_ = iter(['4', '5', '7'])
+    >>> for p in single('list(pp)', list_): p
+    ['4', '5', '7']
+    >>> list_ = iter(['4', '5', '7'])
+    >>> for p in process('list(pp)|', list_): p
+    ['4', '5', '7']
+    >>> list_ = iter(['4', '5', '7'])
+    >>> main(' list(pp) ', list_)
+    ['4', '5', '7']
+    >>> list_ = '''4
+    ... 5
+    ... 7
+    ... '''
+    >>> test(' list(pp) ', list_)
+    ['4', '5', '7']
+

@@ -33,25 +33,38 @@ def exception_handling(expression, p):
         traceback.print_exc()
         print('While evaluating {0!r} with p={1!r}'.format(expression, p), file=sys.stderr)
 
-def single(expression, pp):
-    for p in pp:
+def reintegrate(p, input):
+    '''
+    When iterators containing `pp` are created, the first p is already
+    consumed. So the iterator defining the whole list must be reintegrated with
+    the lost p. In other words, iterators with `pp` can't use `input` directly
+    '''
+    yield p
+    for p in input:
+        yield p
+
+def single(expression, input):
+    for p in input:
+        pp = reintegrate(p, input)
         with exception_handling(expression, p):
             yield eval(expression)
          
-def produce(expression, pp):
-    for p in pp:
+def produce(expression, input):
+    for p in input:
+        pp = reintegrate(p, input)
         with exception_handling(expression, p):
             for e in eval(expression):
                 yield e
          
-def reduce_(expression, pp):
-    for p in pp:
+def reduce_(expression, input):
+    for p in input:
+        pp = reintegrate(p, input)
         with exception_handling(expression, p):
             c = eval(expression)
             if bool(c):
                 yield p
          
-def process(command, pp):
+def process(command, input):
     for stage in parse(command):
         expression, type_ = stage[:-1], stage[-1]
         iterator = {
@@ -59,15 +72,15 @@ def process(command, pp):
             '^' : produce,
             '&' : reduce_,
         }[type_]
-        pp = iterator(expression, pp)
+        input = iterator(expression, input)
 
-    for p in pp:
+    for p in input:
         yield p
 
-def main(command, pp):
+def main(command, input):
     command = r"p.strip('\n') | " + command.strip()
     if command[-1] not in '|^&': command += '|'
-    for p in process(command, pp):
+    for p in process(command, input):
         print(p)
 
 def test(command, input_):

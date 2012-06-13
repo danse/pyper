@@ -3,6 +3,7 @@ from __future__ import print_function
 import sys
 import traceback
 from optparse import OptionParser
+from contextlib import contextmanager
 # for the piped commands
 import collections
 import datetime
@@ -10,7 +11,7 @@ import pprint
 import re
 import os
 
-def parse(pipe):
+def parse(command):
     """
     >>> [p for p in parse('p.split() | p[2] | int(p) - 3 &')]
     ['p.split() |', 'p[2] |', 'int(p) - 3 &']
@@ -19,60 +20,58 @@ def parse(pipe):
     >>> [p for p in parse('p.split() ^ p[2] & int(p) - 3|')]
     ['p.split() ^', 'p[2] &', 'int(p) - 3|']
     """
-    while pipe:
-        match = re.search('(.*?[&|^])(.*)', pipe)
-        stage, pipe = match.group(1).strip(), match.group(2).strip()
+    while command:
+        match = re.search('(.*?[&|^])(.*)', command)
+        stage, command = match.group(1).strip(), match.group(2).strip()
         yield stage
 
-def single(command, pp):
+@contextmanager
+def exception_handling(expression, p):
+    try:
+        yield
+    except:
+        traceback.print_exc()
+        print('While evaluating {0!r} with p={1!r}'.format(expression, p), file=sys.stderr)
+
+def single(expression, pp):
     for p in pp:
-        try:
-            yield eval(command)
-        except:
-            traceback.print_exc()
-            print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
+        with exception_handling(expression, p):
+            yield eval(expression)
          
-def produce(command, pp):
+def produce(expression, pp):
     for p in pp:
-        try:
-            for e in eval(command):
+        with exception_handling(expression, p):
+            for e in eval(expression):
                 yield e
-        except:
-            traceback.print_exc()
-            print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
          
-def reduce(command, pp):
+def reduce_(expression, pp):
     for p in pp:
-        try:
-            c = bool(eval(command))
-            if c:
+        with exception_handling(expression, p):
+            c = eval(expression)
+            if bool(c):
                 yield p
-        except:
-            traceback.print_exc()
-            print('While evaluating {0!r} with p={1!r}'.format(command, p), file=sys.stderr)
          
-def process(arg, input):
-    gen = single(r"p.strip('\n')", input)
-    for command in parse(arg):
-        command, type_ = command[:-1], command[-1]
-        stage = {
+def process(command, pp):
+    for stage in parse(command):
+        expression, type_ = stage[:-1], stage[-1]
+        iterator = {
             '|' : single,
             '^' : produce,
-            '&' : reduce,
+            '&' : reduce_,
         }[type_]
-        gen = stage(command, gen)
+        pp = iterator(expression, pp)
 
-    for p in gen:
+    for p in pp:
         yield p
 
-def main(arg, input):
-    arg = arg.strip()
-    if arg[-1] not in '|^&': arg = arg + '|'
-    for p in process(arg, input):
+def main(command, pp):
+    command = r"p.strip('\n') | " + command.strip()
+    if command[-1] not in '|^&': command += '|'
+    for p in process(command, pp):
         print(p)
 
-def test(arg, input):
-    main(arg, input.splitlines())
+def test(command, input):
+    main(command, input.splitlines())
 
 if __name__=='__main__':
     options, args = OptionParser().parse_args()

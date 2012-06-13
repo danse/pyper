@@ -44,3 +44,52 @@ Following examples can be ran like the one before. They also are actual tests.
     3
     -1
     2
+
+    Other kind of pipe serialization is made up always from bitwise comparison
+    operators: ^, &
+
+    The result of '^' is iterated, so it acts like a multiplier. Use it instead
+    of '|' to make the downstream pipe stage iterate the result of a preceding
+    pipe stage:
+
+    >>> test('p.split() ^ "flattened "+p', input)
+    flattened 234
+    flattened 4
+    flattened 6
+    flattened 2323
+    flattened 5
+    flattened 2
+    flattened 6546
+    flattened 7
+    flattened 5
+    flattened 675
+    >>> test('p | p', 'iterable')
+    iterable
+    >>> test('p ^ p', 'iterable')
+    i
+    t
+    e
+    r
+    a
+    b
+    l
+    e
+
+    The result of '&' is converted to boolean, and it feeds the downstream
+    stage just if turns to be True. It doesn't feeds the downstream stage with
+    its result (after all, it's just True or False), but with it's original 'p'
+    value.
+
+    >>> test('p.split() ^  2 < int(p) < 10 &', input)
+    4
+    6
+    5
+    7
+    5
+    >>> input = '''
+    ... just noise
+    ... use it like grep
+    ... if you want
+    ... '''
+    >>> test(' "grep" in p &', input)
+    use it like grep

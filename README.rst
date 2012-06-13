@@ -75,9 +75,9 @@ Produce
     instead of ``|`` to make the downstream pipe stage iterate the result of a
     preceding pipe stage:
 
-    >>> test('p | p', 'iterable')
+    >>> test('p |', 'iterable')
     iterable
-    >>> test('p ^ p', 'iterable')
+    >>> test('p ^', 'iterable')
     i
     t
     e
@@ -86,6 +86,10 @@ Produce
     b
     l
     e
+    >>> test('p.split() ^', 'iter on words')
+    iter
+    on
+    words
     >>> test('p.split() ^ "flattened "+p', matrix_)
     flattened 234
     flattened 4

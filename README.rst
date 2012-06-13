@@ -1,14 +1,16 @@
-python piper
+Python piper
 ============
 
 From the genial idea by Toby Rosen, pyp: http://code.google.com/p/pyp/
 
 
-How to install::
+How to install? Copy pyper.py on a server and make it executable, or install it
+in a virtualenv, or in your system if you have root permissions::
 
  pip install git+https://github.com/danse/pyper.git
 
-How to play? Given a ``test`` file containing::
+Pyper should work with python 2.5+ (python 3 included). How to play? Given a
+``test`` file containing::
 
  2
  3
@@ -21,9 +23,9 @@ assignments). ``p`` has always the result returned by the previous pipe stage,
  pyper.py ' int(p) | sum(pp) ' < test
  7
 
-An example involving also unix pipes. List the ten top-level directories
-containing more files, excluding hidden files and dirs (requires python 2.7 for
-the Counter)::
+Feed it with unix pipes, and forget ``awk``! For example, the following will
+ist the ten top-level directories containing more files, excluding hidden files
+and dirs (this requires python 2.7 for the Counter)::
 
  find | pyper.py ' "/." not in p & p.split("/") | p[1] | collections.Counter(pp).most_common(10) '
 
@@ -47,8 +49,8 @@ your next unix pipe stage and you can filter them out using ``2> /dev/null``.
 Other examples
 --------------
 
-Following examples can be ran like the one before. They are written this way to
-work also like actual automatic tests.
+The following examples can be ran like the one before. They are written this
+way to work also like actual automatic tests.
 
     >>> from pyper import test
     >>> matrix_ = '''

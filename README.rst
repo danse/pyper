@@ -107,7 +107,7 @@ Reduce
     its result (after all, it's just True or False), but with it's original
     ``p`` value.
 
-    >>> test('p.split() ^  2 < int(p) < 10 &', input_)
+    >>> test('p.split() ^  2 < int(p) < 10 &', matrix_)
     4
     6
     5

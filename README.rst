@@ -38,7 +38,8 @@ your next unix pipe stage and you can filter them out using ``2> /dev/null``.
 Other examples
 --------------
 
-Following examples can be ran like the one before. They also are actual tests.
+Following examples can be ran like the one before. They are written this way to
+work also like actual automatic tests.
 
     >>> from micropyp import test
     >>> input = '''
@@ -52,8 +53,14 @@ Following examples can be ran like the one before. They also are actual tests.
     -1
     2
 
-    Other kind of pipe serialization is made up always from bitwise comparison
-    operators: ``^``, ``&``
+Other kinds of processing steps
+-------------------------------
+
+    Aside from ``|``, other kinds of pipe serialization are made up with the
+    bitwise comparison operators ``^`` and ``&``.
+
+Produce
+.......
 
     The result of ``^`` is iterated, so it acts like a multiplier. Use it
     instead of ``|`` to make the downstream pipe stage iterate the result of a
@@ -81,6 +88,9 @@ Following examples can be ran like the one before. They also are actual tests.
     b
     l
     e
+
+Reduce
+......
 
     The result of ``&`` is converted to boolean, and it feeds the downstream
     stage just if turns to be True. It doesn't feeds the downstream stage with

@@ -21,7 +21,7 @@ assignments). ``p`` has always the result returned by the previous pipe stage,
 ``pp`` is the whole list::
 
  pyper.py ' int(p) | sum(pp) ' < test
- 7
+ 9
 
 Feed it with unix pipes, and forget ``awk``! For example, the following will
 ist the ten top-level directories containing more files, excluding hidden files

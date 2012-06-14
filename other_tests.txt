@@ -23,3 +23,18 @@ nonetheless useful to test pyper.
     >>> test(' list(pp) ', list_)
     ['4', '5', '7']
 
+    Thanks to Chandrasekar Ravoori for the following test cases. This is a
+    weird behavior, but I do not know how a user should use this kind of
+    expressions and what he should expect from it:
+    >>> input_ = '''2
+    ... 6
+    ... 3
+    ... 4
+    ... '''
+    >>> test('p=="3" and list(pp) ', input_)
+    False
+    False
+    ['3', '4']
+    >>> test('p=="3" and list(pp) &', input_)
+    3
+

@@ -64,6 +64,7 @@ way to work also like actual automatic tests.
     -1
     2
 
+
 Other kinds of processing steps
 -------------------------------
 
@@ -138,3 +139,28 @@ Reduce
     ... '''
     >>> test(' "grep" in p &', input_)
     use it like grep
+
+Complex cases and mixing ``pp`` with ``p``
+------------------------------------------
+
+    The pyper pipeline is made up from **generators**. This makes it extremely
+    efficient (you can feed it with gigabyte files without taking system
+    memory), but it causes some unintuitive behaviour when using ``pp``. ``pp``
+    is a generator and it cannot be used directly as a list. You will have to
+    convert it to a list before:
+
+    >>> letters = '''a
+    ... b
+    ... c
+    ... d
+    ... e
+    ... '''
+    >>> test('pp[3:-1]', letters)            # This won't work (pp is a generator)
+    >>> test('list(pp) | p[2:-1]', letters)  # This will
+    ['c', 'd']
+
+    When using `p` together with ``pp``, the latter will dominate over the
+    number of results, and so the whole expression will be evaluated just one
+    time for all input values.
+    >>> test('p, p, p + p, list(pp)', letters)
+    ('a', 'a', 'aa', ['a', 'b', 'c', 'd', 'e'])

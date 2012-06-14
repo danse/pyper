@@ -162,5 +162,6 @@ Complex cases and mixing ``pp`` with ``p``
     When using `p` together with ``pp``, the latter will dominate over the
     number of results, and so the whole expression will be evaluated just one
     time for all input values.
+
     >>> test('p, p, p + p, list(pp)', letters)
     ('a', 'a', 'aa', ['a', 'b', 'c', 'd', 'e'])

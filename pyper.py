@@ -33,38 +33,38 @@ def exception_handling(expression, p):
         traceback.print_exc()
         print('While evaluating {0!r} with p={1!r}'.format(expression, p), file=sys.stderr)
 
-def reintegrate(p, input):
+def reintegrate(p, input_):
     '''
     When iterators containing `pp` are created, the first p is already
     consumed. So the iterator defining the whole list must be reintegrated with
-    the lost p. In other words, iterators with `pp` can't use `input` directly
+    the lost p. In other words, iterators with `pp` can't use `input_` directly
     '''
     yield p
-    for p in input:
+    for p in input_:
         yield p
 
-def single(expression, input):
-    for p in input:
-        pp = reintegrate(p, input)
+def single(expression, input_):
+    for p in input_:
+        pp = reintegrate(p, input_)
         with exception_handling(expression, p):
             yield eval(expression)
          
-def produce(expression, input):
-    for p in input:
-        pp = reintegrate(p, input)
+def produce(expression, input_):
+    for p in input_:
+        pp = reintegrate(p, input_)
         with exception_handling(expression, p):
             for e in eval(expression):
                 yield e
          
-def reduce_(expression, input):
-    for p in input:
-        pp = reintegrate(p, input)
+def reduce_(expression, input_):
+    for p in input_:
+        pp = reintegrate(p, input_)
         with exception_handling(expression, p):
             c = eval(expression)
             if bool(c):
                 yield p
          
-def process(command, input):
+def process(command, input_):
     for stage in parse(command):
         expression, type_ = stage[:-1], stage[-1]
         iterator = {
@@ -72,15 +72,15 @@ def process(command, input):
             '^' : produce,
             '&' : reduce_,
         }[type_]
-        input = iterator(expression, input)
+        input_ = iterator(expression, input_)
 
-    for p in input:
+    for p in input_:
         yield p
 
-def main(command, input):
+def main(command, input_):
     command = r"p.strip('\n') | " + command.strip()
     if command[-1] not in '|^&': command += '|'
-    for p in process(command, input):
+    for p in process(command, input_):
         print(p)
 
 def test(command, input_):

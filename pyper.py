@@ -64,7 +64,10 @@ def reduce_(expression, input_):
             if bool(c):
                 yield p
          
-def process(command, input_):
+def main(command, input_):
+    command = r"p.strip('\n') | " + command.strip()
+    if command[-1] not in '|^&': command += '|'
+
     for stage in parse(command):
         expression, type_ = stage[:-1], stage[-1]
         iterator = {
@@ -75,12 +78,6 @@ def process(command, input_):
         input_ = iterator(expression, input_)
 
     for p in input_:
-        yield p
-
-def main(command, input_):
-    command = r"p.strip('\n') | " + command.strip()
-    if command[-1] not in '|^&': command += '|'
-    for p in process(command, input_):
         print(p)
 
 def test(command, input_):

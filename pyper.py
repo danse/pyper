@@ -42,24 +42,24 @@ def reintegrate(p, input_):
     for p in input_:
         yield p
 
-def single(expression, input_):
+def single(code, expression, input_):
     for p in input_:
         pp = reintegrate(p, input_)
         with exception_handling(expression, p):
-            yield eval(expression)
+            yield eval(code)
          
-def produce(expression, input_):
+def produce(code, expression, input_):
     for p in input_:
         pp = reintegrate(p, input_)
         with exception_handling(expression, p):
-            for e in eval(expression):
+            for e in eval(code):
                 yield e
          
-def reduce_(expression, input_):
+def reduce_(code, expression, input_):
     for p in input_:
         pp = reintegrate(p, input_)
         with exception_handling(expression, p):
-            c = eval(expression)
+            c = eval(code)
             if bool(c):
                 yield p
          
@@ -74,7 +74,8 @@ def main(command, input_):
             '^' : produce,
             '&' : reduce_,
         }[type_]
-        input_ = iterator(expression, input_)
+        code   = compile(expression, '<dynamic>', 'eval')
+        input_ = iterator(code, expression, input_)
 
     for p in input_:
         print(p)

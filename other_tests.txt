@@ -8,10 +8,6 @@ nonetheless useful to test pyper.
 
     >>> from pyper import test, main, single
     >>> list_ = iter(['4', '5', '7'])
-    >>> for p in single('list(pp)', list_): p
-    ['4', '5', '7']
-    >>> list_ = iter(['4', '5', '7'])
-    >>> list_ = iter(['4', '5', '7'])
     >>> main(' list(pp) ', list_)
     ['4', '5', '7']
     >>> list_ = '''4

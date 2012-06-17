@@ -29,9 +29,8 @@ def parse(command):
 def exception_handling(expression, p):
     try:
         yield
-    except:
-        traceback.print_exc()
-        print('While evaluating {0!r} with p={1!r}'.format(expression, p), file=sys.stderr)
+    except Exception as e:
+        print('Exception "{0}" while evaluating {1!r} with p={2!r}'.format(e, expression, p), file=sys.stderr)
 
 def reintegrate(p, input_):
     '''

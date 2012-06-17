@@ -89,6 +89,6 @@ def test(command, input_):
 if __name__=='__main__':
     parser = OptionParser('usage: %prog <command>')
     options, args = parser.parse_args()
-    if len(args) <= 1:
+    if len(args) < 1:
         parser.error('Hey, you should tell at least what to do on your input!')
     main(args[0], sys.stdin)

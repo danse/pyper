@@ -9,7 +9,7 @@ in a virtualenv, or in your system if you have root permissions::
 
  pip install git+https://github.com/danse/pyper.git
 
-Pyper should work with python 2.5+ (python 3 included). How to play? Given a
+Pyper should work with python 2.6+ (python 3 included). How to play? Given a
 ``test`` file containing::
 
  2

@@ -1,3 +1,6 @@
+.. image:: https://secure.travis-ci.org/danse/pyper.png
+   :align: right
+
 Python piper
 ============
 

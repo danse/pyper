@@ -1,5 +1,6 @@
 .. image:: https://secure.travis-ci.org/danse/pyper.png
    :align: right
+   :target: http://travis-ci.org/#!/danse/pyper
 
 Python piper
 ============

@@ -7,6 +7,8 @@ Python piper
 
 From the genial idea by Toby Rosen, pyp: http://code.google.com/p/pyp/
 
+Pyper.py is a shell command which allows to process line-based data files using
+python expressions.
 
 How to install? Copy pyper.py on a server and make it executable, or install it
 in a virtualenv, or in your system if you have root permissions::

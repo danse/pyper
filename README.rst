@@ -55,7 +55,7 @@ your next unix pipe stage and you can filter them out using ``2> /dev/null``.
 Other examples
 --------------
 
-The following examples can be ran like the one before. They are written this
+The following examples can be run like the one before. They are written this
 way to work also like actual automatic tests.
 
     >>> from pyper import test

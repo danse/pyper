@@ -10,6 +10,7 @@ import datetime
 import pprint
 import re
 import os
+import random
 
 def parse(command):
     """
